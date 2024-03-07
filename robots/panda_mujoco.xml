@@ -1,0 +1,7 @@
+<mujoco model="panda scene">
+  <include file="./mujoco_elements/franka_emika_panda/panda.xml" />
+
+  <option timestep="0.001" >
+    <flag actuation="enable" gravity="enable" warmstart="enable" />
+  </option>
+</mujoco>

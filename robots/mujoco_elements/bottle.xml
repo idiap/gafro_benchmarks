@@ -1,0 +1,27 @@
+<mujoco model="bottle">
+  <compiler angle="radian" autolimits="true" meshdir="./elements/franka_emika_panda/assets"/>
+  <asset>
+    <mesh name="lid" file="bottle_lid.obj" scale="0.0003 0.0003 0.0001" />
+  </asset>
+  <size/>
+  <default/>
+  <worldbody>
+    <!-- <body name="body" pos="0.6 0.0 0.3" euler="0 -0.78 0"> -->
+    <!-- <body name="body" pos="0.6 0.0 0.1" euler="0 -0.5 1.78"> -->
+    <!-- <body name="body" pos="0.6 0.0 0.1" euler="0 0 0.7854"> -->
+    <body name="bottle" pos="0.3 0.0 0.1">
+      <inertial pos="0 0 0" quat="0.00630474 0.751245 0.00741774 0.659952" mass="0.5" diaginertia="0.00430465 0.00387984 0.00313051"/>
+      <!-- <joint name="free" limited="false" type="free" range="-4 4" damping="0.01" frictionloss="0"/> -->
+      <!-- <geom size="0.04 0.1" type="cylinder" rgba="0 1 0 1"/> -->
+      <geom size="0.04 0.04 0.1" type="box" rgba="0 1 0 1"/>
+      <body name="lid" pos="0 0 0.12" euler="0 0 0">
+        <inertial pos="0 0 0" mass="0.001" diaginertia="0.01 0.01 1e-05"/>
+        <joint name="articulation" type="slide" axis="0 1 0" stiffness="0.0" damping="0.0" frictionloss="0.0" armature="0"/>
+        <!-- <geom size="0.03 0.015" type="cylinder" rgba="1 0 0 1" friction="1.0" condim="4"/> -->
+        <geom size="0.03 0.03 0.015" type="box" rgba="1 0 0 1" friction="1.0" condim="3" />
+        <!-- <geom type="mesh" mesh="lid" friction="0.6" /> -->
+      </body>
+    </body>
+    <camera name="lid_closer" mode="targetbodycom" pos="0.5 0.25 0.3" target="lid" />
+  </worldbody>
+</mujoco>
