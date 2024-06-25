@@ -6,10 +6,11 @@ In order to use the library you need to install [sackmesser](https://gitlab.com/
 
 The optional dependencies are
 
-|---|---|
+| Library | URL |
+| --- | --- |
 | gafro | https://github.com/idiap/gafro |
 | raisim | https://raisim.com/index.html |
-| pinocchio  https://github.com/stack-of-tasks/pinocchio |
+| pinocchio | https://github.com/stack-of-tasks/pinocchio |
 | DQ Robotics | https://github.com/dqrobotics |
 | Orocos KDL | https://github.com/orocos/orocos_kinematics_dynamics |
 | MuJoCo | https://github.com/google-deepmind/mujoco |
