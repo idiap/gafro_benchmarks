@@ -52,6 +52,26 @@ namespace gafro_benchmark
         return name;
     }
 
+    bool BenchmarkDQRobotics::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkDQRobotics::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkDQRobotics::hasInverseDynamics()
+    {
+        return false;
+    }
+
+    bool BenchmarkDQRobotics::hasForwardDynamics()
+    {
+        return false;
+    }
+
     REGISTER_CLASS(Benchmark, BenchmarkDQRobotics, "gafro_benchmark_dqrobotics");
 
 }  // namespace gafro_benchmark

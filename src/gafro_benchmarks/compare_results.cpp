@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     std::vector<std::unique_ptr<Benchmark>> benchmarks;
 
     benchmarks.push_back(Benchmark::getFactory()->createUnique("gafro_benchmark_pinocchio"));
-    benchmarks.push_back(Benchmark::getFactory()->createUnique("gafro_benchmark_raisim"));
+    benchmarks.push_back(Benchmark::getFactory()->createUnique("gafro_benchmark_kdl"));
     benchmarks.push_back(Benchmark::getFactory()->createUnique("gafro_benchmark_rbdl"));
 
     std::array<double, 3> error({ 0.0, 0.0, 0.0 });
@@ -41,11 +41,11 @@ int main(int argc, char **argv)
         Eigen::Vector<double, 7> velocity = Eigen::Vector<double, 7>::Random();
         Eigen::Vector<double, 7> torque = Eigen::Vector<double, 7>::Random();
 
-        Eigen::Vector<double, 7> gafro_acceleration = gafro->computeInverseDynamics(position, velocity, torque);
+        Eigen::Vector<double, 7> gafro_acceleration = gafro->computeForwardDynamics(position, velocity, torque);
 
         for (unsigned k = 0; k < 3; k++)
         {
-            Eigen::Vector<double, 7> acceleration = benchmarks[k]->computeInverseDynamics(position, velocity, torque);
+            Eigen::Vector<double, 7> acceleration = benchmarks[k]->computeForwardDynamics(position, velocity, torque);
 
             error[k] += (gafro_acceleration - acceleration).norm();
         }
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 
     for (unsigned k = 0; k < 3; k++)
     {
-        std::cout << error[k] / 1000.0 << std::endl;
+        std::cout << benchmarks[k]->getName() << " " << error[k] / 1000.0 << std::endl;
     }
 
     return 0;

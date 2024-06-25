@@ -81,6 +81,26 @@ namespace gafro_benchmark
         return name;
     }
 
+    bool BenchmarkRaisim::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkRaisim::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkRaisim::hasInverseDynamics()
+    {
+        return true;
+    }
+
+    bool BenchmarkRaisim::hasForwardDynamics()
+    {
+        return true;
+    }
+
     REGISTER_CLASS(Benchmark, BenchmarkRaisim, "gafro_benchmark_raisim");
 
 }  // namespace gafro_benchmark

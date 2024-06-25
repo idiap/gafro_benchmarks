@@ -20,6 +20,7 @@
 #pragma once
 
 #include <gafro/gafro.hpp>
+#include <gafro_robot_descriptions/FrankaEmikaRobot.hpp>
 //
 #include <gafro_benchmarks/Benchmark.hpp>
 
@@ -42,6 +43,14 @@ namespace gafro_benchmark
         Vector computeForwardDynamics(const Vector &position, const Vector &velocity, const Vector &torque);
 
         const std::string &getName() const;
+
+        bool hasForwardKinematics();
+
+        bool hasJacobian();
+
+        bool hasInverseDynamics();
+
+        bool hasForwardDynamics();
 
       protected:
       private:

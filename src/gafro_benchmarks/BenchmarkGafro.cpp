@@ -52,6 +52,26 @@ namespace gafro_benchmark
         return name;
     }
 
+    bool BenchmarkGafro::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkGafro::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkGafro::hasInverseDynamics()
+    {
+        return true;
+    }
+
+    bool BenchmarkGafro::hasForwardDynamics()
+    {
+        return true;
+    }
+
     REGISTER_CLASS(Benchmark, BenchmarkGafro, "gafro_benchmark_gafro");
 
 }  // namespace gafro_benchmark

@@ -43,6 +43,14 @@ namespace gafro_benchmark
 
         const std::string &getName() const;
 
+        bool hasForwardKinematics();
+
+        bool hasJacobian();
+
+        bool hasInverseDynamics();
+
+        bool hasForwardDynamics();
+
       protected:
       private:
         RigidBodyDynamics::Model panda_;

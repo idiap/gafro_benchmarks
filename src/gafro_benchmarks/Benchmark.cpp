@@ -32,7 +32,7 @@ namespace gafro_benchmark
 
         for (unsigned i = 0; i < 20; ++i)
         {
-            average_time += timer_.computeAverageTime([&]() { function(); }) * 1e9;
+            average_time += timer_.computeAverageTime([&]() { function(); }) * 1e6;
         }
 
         average_time /= 20.0;

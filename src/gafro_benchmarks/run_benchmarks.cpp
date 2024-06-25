@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     std::cout << "---------" << std::endl;
 
     scatter::FigureOptions figure_options;
-    figure_options.setWidth(2000.0);
+    figure_options.setWidth(2500.0);
     figure_options.setHeight(1000.0);
 
     scatter::Figure figure(figure_options, 2, 2);
@@ -69,23 +69,30 @@ int main(int argc, char **argv)
 
         for (const auto &benchmark : benchmarks)
         {
+            if (!benchmark->hasForwardKinematics())
+            {
+                continue;
+            }
+
             std::cout << "run " << benchmark->getName() << std::endl;
 
             plot
               ->add<scatter::BarPlot>(benchmark->getName(),
                                       std::vector<scatter::Point>({ scatter::Point(x, benchmark->benchmarkForwardKinematics()) }))
-              ->setWidth(0.25);
+              ->setWidth(0.5);
 
             x += 1.0;
         }
 
         plot->options().getAxisOptions().setXlabel("");
-        plot->options().getAxisOptions().setYlabel("time [ns]");
+        // plot->options().getAxisOptions().setYlabel("");
+        plot->options().getAxisOptions().setYlabel("time [ms]");
+        plot->options().getTextOptions().setSize(65);
 
         plot->options().getAxisOptions().setXmin(0.0);
         plot->options().getAxisOptions().setXmax(x - 0.5);
         plot->options().getAxisOptions().setYticks(5);
-        plot->options().getAxisOptions().setYmax(2500);
+        plot->options().getAxisOptions().setYmax(2.5);
         plot->options().getAxisOptions().setYPrecision(4);
 
         plot->options().getAxisOptions().setShowXticks(false);
@@ -93,8 +100,11 @@ int main(int argc, char **argv)
         plot->options().getAxisOptions().setShowGrid(true);
         plot->options().getAxisOptions().setShow(true);
 
-        plot->options().getLegendOptions().setShow(false);
+        plot->options().getLegendOptions().setShow(true);
         plot->options().getLegendOptions().setAnchor(scatter::Anchor::NORTH_WEST);
+        plot->options().setTitle("");
+
+        plot->save("benchmark_forward_kinematics.pdf", figure_options);
 
         figure.add(plot, 0, 0);
     }
@@ -110,21 +120,28 @@ int main(int argc, char **argv)
 
         for (const auto &benchmark : benchmarks)
         {
+            if (!benchmark->hasJacobian())
+            {
+                continue;
+            }
+
             std::cout << "run " << benchmark->getName() << std::endl;
 
             plot->add<scatter::BarPlot>(benchmark->getName(), std::vector<scatter::Point>({ scatter::Point(x, benchmark->benchmarkJacobian()) }))
-              ->setWidth(0.25);
+              ->setWidth(0.5);
 
             x += 1.0;
         }
 
         plot->options().getAxisOptions().setXlabel("");
-        plot->options().getAxisOptions().setYlabel("time [ns]");
+        // plot->options().getAxisOptions().setYlabel("");
+        plot->options().getAxisOptions().setYlabel("time [ms]");
+        plot->options().getTextOptions().setSize(65);
 
         plot->options().getAxisOptions().setXmin(0.0);
-        plot->options().getAxisOptions().setXmax(x + 0.5);
+        plot->options().getAxisOptions().setXmax(x - 0.5);
         plot->options().getAxisOptions().setYticks(5);
-        plot->options().getAxisOptions().setYmax(4000);
+        plot->options().getAxisOptions().setYmax(4.0);
         plot->options().getAxisOptions().setYPrecision(4);
 
         plot->options().getAxisOptions().setShowXticks(false);
@@ -132,8 +149,11 @@ int main(int argc, char **argv)
         plot->options().getAxisOptions().setShowGrid(true);
         plot->options().getAxisOptions().setShow(true);
 
-        plot->options().getLegendOptions().setShow(false);
+        plot->options().getLegendOptions().setShow(true);
         plot->options().getLegendOptions().setAnchor(scatter::Anchor::NORTH_WEST);
+        plot->options().setTitle("");
+
+        plot->save("benchmark_jacobian.pdf", figure_options);
 
         figure.add(plot, 0, 1);
     }
@@ -149,22 +169,29 @@ int main(int argc, char **argv)
 
         for (const auto &benchmark : benchmarks)
         {
+            if (!benchmark->hasInverseDynamics())
+            {
+                continue;
+            }
+
             std::cout << "run " << benchmark->getName() << std::endl;
 
             plot
               ->add<scatter::BarPlot>(benchmark->getName(), std::vector<scatter::Point>({ scatter::Point(x, benchmark->benchmarkInverseDynamics()) }))
-              ->setWidth(0.25);
+              ->setWidth(0.5);
 
             x += 1.0;
         }
 
         plot->options().getAxisOptions().setXlabel("");
-        plot->options().getAxisOptions().setYlabel("time [ns]");
+        // plot->options().getAxisOptions().setYlabel("");
+        plot->options().getAxisOptions().setYlabel("time [ms]");
+        plot->options().getTextOptions().setSize(65);
 
         plot->options().getAxisOptions().setXmin(0.0);
-        plot->options().getAxisOptions().setXmax(x + 0.5);
+        plot->options().getAxisOptions().setXmax(x - 0.5);
         plot->options().getAxisOptions().setYticks(5);
-        plot->options().getAxisOptions().setYmax(25000);
+        plot->options().getAxisOptions().setYmax(25.0);
         plot->options().getAxisOptions().setYPrecision(4);
 
         plot->options().getAxisOptions().setShowXticks(false);
@@ -172,8 +199,11 @@ int main(int argc, char **argv)
         plot->options().getAxisOptions().setShowGrid(true);
         plot->options().getAxisOptions().setShow(true);
 
-        plot->options().getLegendOptions().setShow(false);
+        plot->options().getLegendOptions().setShow(true);
         plot->options().getLegendOptions().setAnchor(scatter::Anchor::NORTH_WEST);
+        plot->options().setTitle("");
+
+        plot->save("benchmark_inverse_dynamics.pdf", figure_options);
 
         figure.add(plot, 1, 0);
     }
@@ -189,21 +219,28 @@ int main(int argc, char **argv)
 
         for (const auto &benchmark : benchmarks)
         {
+            if (!benchmark->hasForwardDynamics())
+            {
+                continue;
+            }
+
             std::cout << "run " << benchmark->getName() << std::endl;
 
             plot
               ->add<scatter::BarPlot>(benchmark->getName(), std::vector<scatter::Point>({ scatter::Point(x, benchmark->benchmarkForwardDynamics()) }))
-              ->setWidth(0.25);
+              ->setWidth(0.5);
 
             x += 1.0;
         }
 
         plot->options().getAxisOptions().setXlabel("");
-        plot->options().getAxisOptions().setYlabel("time [ns]");
+        // plot->options().getAxisOptions().setYlabel("");
+        plot->options().getAxisOptions().setYlabel("time [ms]");
+        plot->options().getTextOptions().setSize(65);
 
         plot->options().getAxisOptions().setXmin(0.0);
-        plot->options().getAxisOptions().setXmax(x + 0.5);
-        plot->options().getAxisOptions().setYmax(75000);
+        plot->options().getAxisOptions().setXmax(x - 0.5);
+        plot->options().getAxisOptions().setYmax(80.0);
         plot->options().getAxisOptions().setYticks(10);
         plot->options().getAxisOptions().setYPrecision(5);
 
@@ -213,7 +250,10 @@ int main(int argc, char **argv)
         plot->options().getAxisOptions().setShow(true);
 
         plot->options().getLegendOptions().setShow(true);
-        plot->options().getLegendOptions().setAnchor(scatter::Anchor::NORTH_EAST);
+        plot->options().getLegendOptions().setAnchor(scatter::Anchor::NORTH_WEST);
+        plot->options().setTitle("");
+
+        plot->save("benchmark_forward_dynamics.pdf", figure_options);
 
         figure.add(plot, 1, 1);
     }

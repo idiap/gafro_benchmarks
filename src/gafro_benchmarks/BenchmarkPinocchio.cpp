@@ -66,6 +66,26 @@ namespace gafro_benchmark
         return name;
     }
 
+    bool BenchmarkPinocchio::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkPinocchio::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkPinocchio::hasInverseDynamics()
+    {
+        return true;
+    }
+
+    bool BenchmarkPinocchio::hasForwardDynamics()
+    {
+        return true;
+    }
+
     REGISTER_CLASS(Benchmark, BenchmarkPinocchio, "gafro_benchmark_pinocchio");
 
 }  // namespace gafro_benchmark

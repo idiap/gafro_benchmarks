@@ -1,5 +1,6 @@
 find_package(sackmesser REQUIRED)
 find_package(scatter REQUIRED)
+find_package(gafro_robot_descriptions REQUIRED)
 
 add_library(gafro_benchmark SHARED ${CMAKE_CURRENT_LIST_DIR}/Benchmark.cpp)
 target_include_directories(gafro_benchmark PUBLIC "${CMAKE_CURRENT_LIST_DIR}/..")
@@ -16,7 +17,7 @@ LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "")
 
     if(${gafro_FOUND})
         target_sources(gafro_benchmark PRIVATE ${CMAKE_CURRENT_LIST_DIR}/BenchmarkGafro.cpp)
-        target_link_libraries(gafro_benchmark gafro::gafro)
+        target_link_libraries(gafro_benchmark gafro::gafro gafro_robot_descriptions::gafro_robot_descriptions)
 
         LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "gafro_benchmark_gafro")
 
@@ -30,12 +31,12 @@ LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "")
     find_package(raisim)
 
     if(${raisim_FOUND})
-        # target_sources(gafro_benchmark PRIVATE ${CMAKE_CURRENT_LIST_DIR}/BenchmarkRaisim.cpp)
-        # target_link_libraries(gafro_benchmark raisim::raisim)
+        target_sources(gafro_benchmark PRIVATE ${CMAKE_CURRENT_LIST_DIR}/BenchmarkRaisim.cpp)
+        target_link_libraries(gafro_benchmark raisim::raisim)
 
-        # LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "gafro_benchmark_raisim")
+        LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "gafro_benchmark_raisim")
 
-        # message("adding raisim to Benchmark")
+        message("adding raisim to Benchmark")
     endif()
 ### RAISIM #############################################################################################
 
@@ -53,21 +54,6 @@ LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "")
         message("adding pinocchio to Benchmark")
     endif()
 ### PINOCCHIO ##########################################################################################
-
-### DQROBOTICS ###########################################################################################
-    # SET(dqrobotics_FOUND TRUE)
-
-    find_library(DQROBOTICSLIB dqrobotics "/usr/local/lib")
-
-    if(DQROBOTICSLIB)
-        target_sources(gafro_benchmark PRIVATE ${CMAKE_CURRENT_LIST_DIR}/BenchmarkDQRobotics.cpp)
-        target_link_libraries(gafro_benchmark dqrobotics)
-
-        LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "gafro_benchmark_dqrobotics")
-
-        message("adding dqrobotics to Benchmark")
-    endif()
-### DQROBOTICS ###########################################################################################
 
 ### KDL ###########################################################################################
     SET(orocos_kdl_FOUND FALSE)
@@ -105,7 +91,7 @@ LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "")
     endif()
 ### MUJOCO ###########################################################################################
 
-### MUJOCO ###########################################################################################
+### RBDL ###########################################################################################
     SET(RBDL_FOUND FALSE)
 
     find_package(RBDL)
@@ -120,14 +106,29 @@ LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "")
 
         message("adding RBDL to Benchmark")
     endif()
-### MUJOCO ###########################################################################################
+### RBDL ###########################################################################################
+
+### DQROBOTICS ###########################################################################################
+    # SET(dqrobotics_FOUND TRUE)
+
+    find_library(DQROBOTICSLIB dqrobotics "/usr/local/lib")
+
+    if(DQROBOTICSLIB)
+        target_sources(gafro_benchmark PRIVATE ${CMAKE_CURRENT_LIST_DIR}/BenchmarkDQRobotics.cpp)
+        target_link_libraries(gafro_benchmark dqrobotics)
+
+        LIST(APPEND GAFRO_BENCHMARK_LIBRARIES "gafro_benchmark_dqrobotics")
+
+        message("adding dqrobotics to Benchmark")
+    endif()
+### DQROBOTICS ###########################################################################################
 
 configure_file(${CMAKE_CURRENT_LIST_DIR}/gafro_benchmark_package_config.h.in "${CMAKE_CURRENT_BINARY_DIR}/gafro_benchmark_package_config.hpp")
 
 add_executable(run_benchmarks run_benchmarks.cpp)
 target_include_directories(run_benchmarks PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>/..)
 target_link_libraries(run_benchmarks PUBLIC gafro_benchmark)
-target_compile_options(run_benchmarks PUBLIC "-O3" "-march=native")
+target_compile_options(run_benchmarks PUBLIC "-O3" "-march=native" "-msse4.1")
 
 add_executable(compare_results compare_results.cpp)
 target_include_directories(compare_results PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>/..)

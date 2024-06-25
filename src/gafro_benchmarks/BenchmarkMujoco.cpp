@@ -1,28 +1,27 @@
+/*
+    Copyright (c) 2024 Idiap Research Institute, http://www.idiap.ch/
+    Written by Tobias Löw <https://tobiloew.ch>
 
-g /*
-     Copyright (c) 2024 Idiap Research Institute, http://www.idiap.ch/
-     Written by Tobias Löw <https://tobiloew.ch>
+    This file is part of gafro.
 
-     This file is part of gafro.
+    gafro is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3 as
+    published by the Free Software Foundation.
 
-     gafro is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License version 3 as
-     published by the Free Software Foundation.
+    gafro is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
 
-     gafro is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with gafro. If not, see <http://www.gnu.org/licenses/>.
- */
+    You should have received a copy of the GNU General Public License
+    along with gafro. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <gafro_benchmarks/gafro_benchmark_package_config.hpp>
 //
 #include <gafro_benchmarks/BenchmarkMujoco.hpp>
 
-  namespace gafro_benchmark
+namespace gafro_benchmark
 {
     BenchmarkMujoco::BenchmarkMujoco()
     {
@@ -76,6 +75,26 @@ g /*
     {
         static const std::string name = "MuJoCo";
         return name;
+    }
+
+    bool BenchmarkMujoco::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkMujoco::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkMujoco::hasInverseDynamics()
+    {
+        return true;
+    }
+
+    bool BenchmarkMujoco::hasForwardDynamics()
+    {
+        return true;
     }
 
     REGISTER_CLASS(Benchmark, BenchmarkMujoco, "gafro_benchmark_mujoco");

@@ -35,6 +35,14 @@ namespace gafro_benchmark
 
         virtual ~Benchmark();
 
+        virtual bool hasForwardKinematics() = 0;
+
+        virtual bool hasJacobian() = 0;
+
+        virtual bool hasInverseDynamics() = 0;
+
+        virtual bool hasForwardDynamics() = 0;
+
         double benchmarkForwardKinematics();
 
         double benchmarkJacobian();

@@ -72,6 +72,26 @@ namespace gafro_benchmark
         return name;
     }
 
+    bool BenchmarkRBDL::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkRBDL::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkRBDL::hasInverseDynamics()
+    {
+        return true;
+    }
+
+    bool BenchmarkRBDL::hasForwardDynamics()
+    {
+        return true;
+    }
+
     REGISTER_CLASS(Benchmark, BenchmarkRBDL, "gafro_benchmark_rbdl");
 
 }  // namespace gafro_benchmark

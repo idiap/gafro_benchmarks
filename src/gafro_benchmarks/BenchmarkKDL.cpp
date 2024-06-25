@@ -113,6 +113,26 @@ namespace gafro_benchmark
         return name;
     }
 
+    bool BenchmarkKDL::hasForwardKinematics()
+    {
+        return true;
+    }
+
+    bool BenchmarkKDL::hasJacobian()
+    {
+        return true;
+    }
+
+    bool BenchmarkKDL::hasInverseDynamics()
+    {
+        return true;
+    }
+
+    bool BenchmarkKDL::hasForwardDynamics()
+    {
+        return true;
+    }
+
     REGISTER_CLASS(Benchmark, BenchmarkKDL, "gafro_benchmark_kdl");
 
 }  // namespace gafro_benchmark
